@@ -13,65 +13,78 @@ import { ClientUserMessage } from "SendbirdUIKitGlobal";
 function App() {
   const [currentChannelUrl, setCurrentChannelUrl] = React.useState("");
   return (
-    <div className="App">
-      <SendbirdProvider appId={APP_ID} userId={USER_ID} nickname={NICKNAME}>
-        <ChannelList
-          onChannelSelect={(channel) => {
-            if (channel?.url) {
-              setCurrentChannelUrl(channel.url);
-            }
-          }}
-          renderPlaceHolderEmptyList={() => (
-            <div className="box">
-              Render Empty List State (renderPlaceHolderEmptyList)
-            </div>
-          )}
-          renderPlaceHolderLoading={() => (
-            <div className="box">
-              Render Loading State (renderPlaceHolderLoading)
-            </div>
-          )}
-          renderPlaceHolderError={() => (
-            <div className="box">
-              Render Error State (renderPlaceHolderError)
-            </div>
-          )}
-          renderChannelPreview={({ channel }) => (
-            <div className="channel-list-item">
-              {channel.name} {channel.url}
-            </div>
-          )}
-        />
-        <Channel
-          channelUrl={currentChannelUrl}
-          renderChannelHeader={() => (
-            <div className="channel-header">
-              Channel header (renderChannelHeader)
-            </div>
-          )}
-          renderMessage={({ message }) => (
-            <div className="message">
-              <div>{(message as ClientUserMessage)?.message}</div>
-              {new Date(message.createdAt).toLocaleTimeString()}
-            </div>
-          )}
-          renderPlaceholderLoader={() => (
-            <div className="box">
-              Render Loading State (renderPlaceHolderLoader)
-            </div>
-          )}
-          renderPlaceholderEmpty={() => (
-            <div className="box">
-              Render Empty State (renderPlaceholderEmpty)
-            </div>
-          )}
-          renderPlaceholderInvalid={() => (
-            <div className="box">
-              Render Invalid State (renderPlaceholderInvalid)
-            </div>
-          )}
-        />
-      </SendbirdProvider>
+    <div>
+      <div className="App">
+        <SendbirdProvider appId={APP_ID} userId={USER_ID} nickname={NICKNAME}>
+          <ChannelList
+            onChannelSelect={(channel) => {
+              if (channel?.url) {
+                setCurrentChannelUrl(channel.url);
+              }
+            }}
+            renderPlaceHolderEmptyList={() => (
+              <div className="box">
+                Render Empty List State (renderPlaceHolderEmptyList)
+              </div>
+            )}
+            renderPlaceHolderLoading={() => (
+              <div className="box">
+                Render Loading State (renderPlaceHolderLoading)
+              </div>
+            )}
+            renderPlaceHolderError={() => (
+              <div className="box">
+                Render Error State (renderPlaceHolderError)
+              </div>
+            )}
+            renderChannelPreview={({ channel }) => (
+              <div className="channel-list-item">
+                {channel.name} {channel.url}
+              </div>
+            )}
+          />
+          <Channel
+            channelUrl={currentChannelUrl}
+            renderChannelHeader={() => (
+              <div className="channel-header">
+                Channel header (renderChannelHeader)
+              </div>
+            )}
+            renderMessage={({ message }) => (
+              <div className="message">
+                <div>{(message as ClientUserMessage)?.message}</div>
+                {new Date(message.createdAt).toLocaleTimeString()}
+              </div>
+            )}
+            renderPlaceholderLoader={() => (
+              <div className="box">
+                Render Loading State (renderPlaceHolderLoader)
+              </div>
+            )}
+            renderPlaceholderEmpty={() => (
+              <div className="box">
+                Render Empty State (renderPlaceholderEmpty)
+              </div>
+            )}
+            renderPlaceholderInvalid={() => (
+              <div className="box">
+                Render Invalid State (renderPlaceholderInvalid)
+              </div>
+            )}
+          />
+        </SendbirdProvider>
+      </div>
+      <p>
+        Link to source code on GitHub:{" "}
+        <a
+          href="https://github.com/jls527/sendbird-uikit-example/tree/main/typescript_sample"
+          target="_blank"
+          rel="noreferrer"
+        >
+          https://github.com/jls527/sendbird-uikit-example/tree/main/typescript_sample
+        </a>
+        .
+      </p>
     </div>
   );
 }
