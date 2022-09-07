@@ -1,13 +1,132 @@
+/*
+ * General page demo style START
+ */
+
+* {
+  box-sizing: border-box;
+}
+
 .App {
-  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 500px;
+  background: #fff;
   display: flex;
+  flex-direction: row;
+  border: 3px solid #000;
 }
 
-.sendbird-app__conversation-wrap {
-  flex: 1;
+.box {
+  padding: 10px;
+  background: #ddd;
+  margin: 5px;
 }
 
-/* Cheap trick to hide info button */
-.sendbird-chat-header__right__info {
+.channel-list-item {
+  padding: 10px;
+  border-bottom: 1px solid #555;
+}
+.channel-list-item:hover {
+  background: #f2f2f2;
+  cursor: pointer;
+}
+
+.channel-header {
+  padding: 30px;
+  background: orange;
+}
+
+.message {
+  padding: 10px;
+  background: lightblue;
+  margin: 5px;
+  border-radius: 10px;
+}
+
+/*
+ * Sendbird custom styling START
+ */
+
+/* Channel List */
+
+.sendbird-channel-list {
+  flex: 1 1 0;
+  overflow-y: scroll;
+}
+
+.sendbird-channel-list__header {
   display: none;
+}
+
+/* Conversation */
+
+.sendbird-conversation {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.sendbird-conversation__messages {
+  overflow-y: auto;
+  flex: 1 1 0;
+}
+
+.sendbird-conversation__messages .sendbird-conversation__messages-padding {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+/* Chat footer */
+
+.sendbird-conversation__footer {
+  padding: 12px;
+}
+
+.sendbird-message-input {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+/* Hide "attach files" button as we do not support it */
+.sendbird-message-input .sendbird-message-input--attach {
+  display: none;
+}
+
+/* Style message input */
+.sendbird-message-input--textarea {
+  width: 100%;
+  height: auto;
+  min-height: 36px;
+  padding: 10px 16px;
+  background: #ddd;
+  border-radius: 16px;
+  border: 0;
+  outline: none;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.sendbird-message-input--placeholder {
+  position: absolute;
+  pointer-events: none;
+  top: 10px;
+  left: 16px;
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 0.4;
+}
+
+.sendbird-message-input--send {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  height: 36px !important;
+  width: 30px !important;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
 }
