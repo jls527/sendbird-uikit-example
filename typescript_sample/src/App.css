@@ -65,16 +65,31 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .sendbird-conversation__messages {
   overflow-y: auto;
-  flex: 1 1 0;
+  flex: 1 1;
+}
+
+.sendbird-conversation__scroll-container {
+  display: flex;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-direction: column;
+}
+
+.sendbird-conversation__scroll-container .sendbird-conversation__padding {
+  flex: 1 1;
 }
 
 .sendbird-conversation__messages .sendbird-conversation__messages-padding {
   padding-left: 16px;
   padding-right: 16px;
+  height: 100%;
+  overflow: scroll;
 }
 
 /* Chat footer */
