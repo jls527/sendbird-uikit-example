@@ -6,6 +6,7 @@ import React from "react";
 import SendbirdProvider from "@sendbird/uikit-react/SendbirdProvider";
 import ChannelList from "@sendbird/uikit-react/ChannelList";
 import Channel from "@sendbird/uikit-react/Channel";
+import da from "date-fns/locale/da";
 
 import { APP_ID, USER_ID, NICKNAME } from "./const";
 import { ClientUserMessage } from "SendbirdUIKitGlobal";
@@ -15,7 +16,16 @@ function App() {
   return (
     <div>
       <div className="App">
-        <SendbirdProvider appId={APP_ID} userId={USER_ID} nickname={NICKNAME}>
+        <SendbirdProvider
+          appId={APP_ID}
+          userId={USER_ID}
+          nickname={NICKNAME}
+          dateLocale={da}
+          stringSet={{
+            TRYING_TO_CONNECT: "HEY, custom trying to connect text",
+            CHANNEL__MESSAGE_INPUT__PLACE_HOLDER: "HEY, custom placeholde text",
+          }}
+        >
           <ChannelList
             onChannelSelect={(channel) => {
               if (channel?.url) {
