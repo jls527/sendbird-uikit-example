@@ -9,46 +9,15 @@ import Channel from "@sendbird/uikit-react/Channel";
 import da from "date-fns/locale/da";
 
 import { ClientUserMessage } from "SendbirdUIKitGlobal";
-import SessionHandler from "@sendbird/uikit-react/handlers/SessionHandler";
 
-// export const APP_ID = "2D7B4CDB-932F-4082-9B09-A1153792DC8D";
-export const APP_ID = "B3089175-C202-4118-9CD3-B470A7BAB687";
+export const APP_ID = "2D7B4CDB-932F-4082-9B09-A1153792DC8D";
+// export const APP_ID = "B3089175-C202-4118-9CD3-B470A7BAB687";
 
-// export const USER_ID = "sendbird";
-export const USER_ID = "dba-4007462";
+export const USER_ID = "sendbird";
+// export const USER_ID = "dba-4007462";
 
 function App() {
   const [currentChannelUrl, setCurrentChannelUrl] = React.useState("");
-
-  const configureSessionHandler = () => {
-    const sessionHandler = new SessionHandler();
-    sessionHandler.onSessionTokenRequired = (onSuccess, onError) => {
-      console.log("onSessionTokenRequired", Date.now());
-      onSuccess(
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1IjozMTM1OTg0OCwidiI6MSwiZSI6MTY2MzY2ODY1Nn0.REh_RfJ2myKFWKCQKxg7fKWU7NYjnSDpf1943oBaFVM"
-      );
-      // A new session token is required in the SDK to refresh the session.
-      // Refresh the session token and pass it onto the SDK through `onSuccess(NEW_TOKEN)`.
-      // If you do not want to refresh the session, pass on a null value through `onSuccess(null)`.
-      // If any error occurred while refreshing the token, let the SDK know about it through `onError()`.
-    };
-    sessionHandler.onSessionClosed = () => {
-      console.log("onSessionClosed");
-      // The session refresh has been denied from the app.
-      // Client app should guide the user to a login page to log in again.
-    };
-    sessionHandler.onSessionRefreshed = () => {
-      console.log("onSessionRefreshed");
-      // OPTIONAL. No action is required.
-      // Called when the session is refreshed.
-    };
-    sessionHandler.onSessionError = (err) => {
-      console.log("onSessionError");
-      // OPTIONAL. No action is required.
-      // Called when an error occurred during the session refresh.
-    };
-    return sessionHandler;
-  };
 
   return (
     <div>
@@ -57,11 +26,11 @@ function App() {
           appId={APP_ID}
           userId={USER_ID}
           dateLocale={da}
-          configureSession={configureSessionHandler}
           stringSet={{
-            TRYING_TO_CONNECT: "Custom connect text - does NOT work",
-            CHANNEL__MESSAGE_INPUT__PLACE_HOLDER:
-              "Custom input placeholder text - does NOT work",
+            TRYING_TO_CONNECT: "CUSTOM connect text",
+            MESSAGE_INPUT__PLACE_HOLDER: "CUSTOM input placeholder text",
+            MESSAGE_INPUT__PLACE_HOLDER__DISABLED: "CUSTOM input disabled text",
+            MESSAGE_INPUT__PLACE_HOLDER__MUTED: "CUSTOM input muted text",
           }}
         >
           <ChannelList
