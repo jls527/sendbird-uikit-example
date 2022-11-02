@@ -8,23 +8,33 @@ import ChannelList from "@sendbird/uikit-react/ChannelList";
 import Channel from "@sendbird/uikit-react/Channel";
 import da from "date-fns/locale/da";
 
-import { ClientUserMessage } from "SendbirdUIKitGlobal";
+import { ClientUserMessage, RenderMessageProps } from "SendbirdUIKitGlobal";
+import { getOutgoingMessageState } from "@sendbird/uikit-react/utils/message/getOutgoingMessageState";
+import { useChannelContext } from "@sendbird/uikit-react/Channel/context";
 
 export const APP_ID = "2D7B4CDB-932F-4082-9B09-A1153792DC8D";
 // export const APP_ID = "B3089175-C202-4118-9CD3-B470A7BAB687";
-
-export const USER_ID = "sendbird";
-// export const USER_ID = "dba-4007462";
+// export const USER_ID = "sendbird";
 
 function App() {
+  const userId = window.location.search.replace("?user=", "") || "sendbird";
   const [currentChannelUrl, setCurrentChannelUrl] = React.useState("");
 
   return (
     <div>
+      <h1>Sendbird demo app</h1>
+      <p>
+        You can change the User ID by changing the URL parameter like /?user=abc
+      </p>
+      <p>
+        Your User ID: <strong>{userId}</strong>
+        <br />
+        Current Channel URL: <strong>{currentChannelUrl}</strong>
+      </p>
       <div className="App">
         <SendbirdProvider
           appId={APP_ID}
-          userId={USER_ID}
+          userId={userId}
           dateLocale={da}
           stringSet={{
             TRYING_TO_CONNECT: "CUSTOM connect text",
@@ -67,11 +77,8 @@ function App() {
                 Channel header (renderChannelHeader)
               </div>
             )}
-            renderMessage={({ message }) => (
-              <div className="message">
-                <div>{(message as ClientUserMessage)?.message}</div>
-                {new Date(message.createdAt).toLocaleTimeString()}
-              </div>
+            renderMessage={(renderProps) => (
+              <RenderMessage {...renderProps} userId={userId} />
             )}
             renderPlaceholderLoader={() => (
               <div className="box">
@@ -107,3 +114,29 @@ function App() {
 }
 
 export default App;
+
+function RenderMessage(props: RenderMessageProps & { userId: string }) {
+  const { currentGroupChannel } = useChannelContext();
+
+  const message = props.message as ClientUserMessage;
+
+  return (
+    <div style={{ overflow: "hidden" }}>
+      <div
+        className="message"
+        style={{
+          float: message?.sender?.userId === props.userId ? "right" : "left",
+        }}
+      >
+        <strong>{message?.sender?.userId}</strong>
+        <div>{message?.message}</div>
+        <div>{new Date(message.createdAt).toLocaleTimeString()}</div>
+        {currentGroupChannel && (
+          <strong>
+            {getOutgoingMessageState(currentGroupChannel, message)}
+          </strong>
+        )}
+      </div>
+    </div>
+  );
+}
